@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Incluye Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="local.css"> <!-- Tu CSS personalizado -->
+</head>
+<body>
+
+    <!-- Chatbot Container -->
+    <div id="chatbot" style="display:none">
+        <div id="messages"></div>
+        <input type="text" id="userInput" placeholder="Escribe tu respuesta..." class="input-field"/>
+        <button id="sendButton" class="btn waves-effect waves-light">Enviar</button>
+    </div>
+
+    <!-- Botón que simula la burbuja de chat -->
+    <button class="chat-button" id="chatbotOpen">
+        <i class="material-icons">chat</i>
+    </button>
+
+    <script src="./chatbot.js"></script>
+    <script>
+        // Lógica para abrir y cerrar el chatbot
+        document.getElementById("chatbotOpen").onclick = function() {
+            const chatbotDiv = document.getElementById("chatbot");
+            chatbotDiv.style.display = chatbotDiv.style.display === "none" ? "block" : "none";
+
+            // Si se está mostrando el chatbot, agregar un mensaje inicial
+            if (chatbotDiv.style.display === "block") {
+                const messagesDiv = document.getElementById("messages");
+                messagesDiv.innerHTML += "<div>Chatbot: ¿En qué puedo ayudarte hoy?</div>"; // Mensaje inicial
+            }
+        };
+
+        // Lógica para enviar el mensaje del usuario
+        document.getElementById("sendButton").onclick = function() {
+            const userInput = document.getElementById("userInput").value;
+            const messagesDiv = document.getElementById("messages");
+
+            if (userInput) {
+                messagesDiv.innerHTML += "<div>Tú: " + userInput + "</div>"; // Mostrar lo que el usuario escribió
+                document.getElementById("userInput").value = ""; // Limpiar el campo de entrada
+            }
+        };
+
+        // Opción para enviar el mensaje al presionar Enter
+        document.getElementById("userInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                document.getElementById("sendButton").click(); // Simular clic en el botón de enviar
+            }
+        });
+    </script>
+</body>
+</html>
